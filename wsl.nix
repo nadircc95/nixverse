@@ -8,6 +8,7 @@
 	    system.stateVersion = "25.11";
 	    wsl.enable = true;
 	    wsl.defaultUser = "nadir";
+	    wsl.wslConf.network.hostname = "nadirnix";
 
 	    nix.settings.experimental-features = [
 	      "nix-command"
