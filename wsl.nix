@@ -17,6 +17,7 @@
 	  ({pkgs,...}: {
 	    environment.systemPackages = [
 	      inputs.self.packages.${pkgs.stdenv.system}.nvim
+	      pkgs.git
 	    ];
 	  })
 	];
