@@ -4,28 +4,23 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixos-wsl.url = "github:nix-community/nixos-wsl/main";
-
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixvim.url = "github:nix-community/nixvim";
   };
 
-  outputs = { self, nixpkgs, nixos-wsl }: {
-    nixosConfigurations = {
-      nadir-wsl = nixpkgs.lib.nixosSystem {
-	system = "x86_64-linux";
-	modules = [
-	  nixos-wsl.nixosModules.default
-	  {
-	    system.stateVersion = "25.11";
-	    wsl.enable = true;
-	    wsl.defaultUser = "nadir";
+  outputs = { flake-parts, ... }@inputs: 
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = [
+	"x86_64-linux"
+	"aarch64-linux"
+	"x86_64-darwin"
+	"aarch64-darwin"
+      ];
 
-	    nix.settings.experimental-features = [
-	      "nix-command"
-	      "flakes"
-	    ];
-	  }
-	];
-      };
-    };
-
-  };
+      imports = [
+	./wsl.nix
+	./neovim.nix
+      ];
+    }
+  ; 
 }
