@@ -20,6 +20,12 @@ wsl --install --from-file <NAME.wsl> --name <WSL_distro_name>
 sudo nix run github:nadircc95/nixverse#nixosConfigurations.nadir-wsl.config.system.build.tarballBuilder <NAME.wsl>
 ```
 
+## Apply Configuration
+
+```console
+sudo nixos-rebuild switch --flake .#nadir-wsl
+```
+
 ## NVIM
 
 ```console
