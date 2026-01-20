@@ -1,4 +1,4 @@
-{ inputs, ... }: { perSystem = { system, ... }: 
+{ inputs, ... }: { perSystem = { system, pkgs, ... }: 
   let 
     nixvimLib = inputs.nixvim.lib.${system};
   nixvim' = inputs.nixvim.legacyPackages.${system};
@@ -32,8 +32,30 @@
 	action = "<cmd>Telescope<cr>";
 	key = "<c-f>";
       }
+      {
+	action = "<cmd>resize -2<cr>";
+	key = "<m-Up>";
+      }
+      {
+	action = "<cmd>resize +2<cr>";
+	key = "<m-Down>";
+      }
+      {
+	action = "<cmd>vertical resize -2<cr>";
+	key = "<m-Left>";
+      }
+      {
+	action = "<cmd>vertical resize +2<cr>";
+	key = "<m-Right>";
+      }
+
       ];
       # config.lazyload.settings.cmd = "Telescope";
+      config.extraPackages = [
+	pkgs.ripgrep
+      ];
+      config.plugins.web-devicons.enable = true;
+      # config.plugins.mini-icons.enable = true;
       config.plugins.telescope = {
 	enable = true;
 	keymaps.ff.options.desc = "Find by files";
@@ -75,7 +97,7 @@
 	enable = true;
 	settings = {
 	  view.side = "left";
-	  view.width = 45;
+	  view.width = 60;
 	  filters.dotfiles = true;
 	  git.enable = true;
 	};
