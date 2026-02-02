@@ -48,6 +48,18 @@
 	action = "<cmd>vertical resize +2<cr>";
 	key = "<m-Right>";
       }
+      {
+	mode = "n";
+	key = "<leader>fe";
+	action = ":let f=findfile('.env','.;') | if empty(f) | echo 'No .env found' | else | execute 'edit '..f | endif<CR>";
+	options.desc = "Edit nearest .env (safe)";
+      }
+      {
+	mode = "n";
+	key = "<leader>er";
+	action = ":let f=findfile('.envrc','.;') | if empty(f) | echo 'No .envrc found' | else | execute 'edit '..f | endif<CR>";
+	options.desc = "Edit nearest .envrc (safe)";
+      }
 
       ];
 # config.lazyload.settings.cmd = "Telescope";
@@ -56,6 +68,9 @@
       ];
       config.plugins.web-devicons.enable = true;
 # config.plugins.mini-icons.enable = true;
+
+
+
       config.plugins.telescope = {
 	enable = true;
 
@@ -67,14 +82,14 @@
 	    follow = true;
 	    file_ignore_patterns = [
 	      "node_modules"
-	      "vendor"
-	      ".git"
-	      ".pgdata"
+		"vendor"
+		".git"
+		".pgdata"
 	    ];
 	  };
 	};
 
-	
+
 
 	keymaps.ff = {
 	  action = "find_files";
