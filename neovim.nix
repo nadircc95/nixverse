@@ -50,16 +50,42 @@
       }
 
       ];
-      # config.lazyload.settings.cmd = "Telescope";
+# config.lazyload.settings.cmd = "Telescope";
       config.extraPackages = [
 	pkgs.ripgrep
       ];
       config.plugins.web-devicons.enable = true;
-      # config.plugins.mini-icons.enable = true;
+# config.plugins.mini-icons.enable = true;
       config.plugins.telescope = {
 	enable = true;
-	keymaps.ff.options.desc = "Find by files";
-	keymaps.ff.action = "find_files";
+
+	settings = {
+	  defaults = {
+	    hidden = true;
+	    no_ignore = true;
+	    no_ignore_parent = true;
+	    follow = true;
+	    file_ignore_patterns = [
+	      "node_modules"
+	      "vendor"
+	      ".git"
+	      ".pgdata"
+	    ];
+	  };
+	};
+
+	
+
+	keymaps.ff = {
+	  action = "find_files";
+	  options = {
+	    desc = "Find files (include .env & hidden)";
+	  };
+	};
+
+
+# keymaps.ff.options.desc = "Find by files";
+# keymaps.ff.action = "find_files";
 
 	keymaps.fF.options.desc = "Find by words";
 	keymaps.fF.action = "live_grep";
