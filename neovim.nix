@@ -1,161 +1,171 @@
-{ inputs, ... }: { perSystem = { system, pkgs, ... }: 
-  let 
+{ inputs, ... }:
+{
+  perSystem = { system, pkgs, ... }:
+    let
     nixvimLib = inputs.nixvim.lib.${system};
   nixvim' = inputs.nixvim.legacyPackages.${system};
+
   nixvimModule = {
     inherit system;
+
     module = {
+###### OPTIONS (VIM CORE) ######
       config.opts = {
-	shiftwidth = 2;
+        shiftwidth = 2;
+        tabstop = 2;
+        expandtab = true;
 
-	number = true;
-	relativenumber = true;
+        number = true;          # absolute line number
+          relativenumber = true;  # relative line number
 
-	cursorline = true;
-	signcolumn = "yes";
+          cursorline = true;
+        signcolumn = "yes";
       };
+
+###### KEYMAPS ######
       config.keymaps = [
       {
-	action = "<cmd>NvimTreeToggle<cr>";
-	key = "<c-n>";
-	options.silent = true;
+        key = "<c-n>";
+        action = "<cmd>NvimTreeToggle<cr>";
+        options.silent = true;
       }
+      { key = "<c-l>"; action = "<c-w>l"; }
+      { key = "<c-h>"; action = "<c-w>h"; }
+      { key = "<c-j>"; action = "<c-w>j"; }
+      { key = "<c-k>"; action = "<c-w>k"; }
+
       {
-	action = "<c-w>l";
-	key = "<c-l>";
-      }
-      {
-	action = "<c-w>h";
-	key = "<c-h>";
-      }
-      {
-	action = "<c-w>j";
-	key = "<c-j>";
-      }
-      {
-	action = "<c-w>k";
-	key = "<c-k>";
-      }	
-      {
-	action = "<cmd>Telescope<cr>";
-	key = "<c-f>";
-      }
-      {
-	action = "<cmd>resize -2<cr>";
-	key = "<m-Up>";
-      }
-      {
-	action = "<cmd>resize +2<cr>";
-	key = "<m-Down>";
-      }
-      {
-	action = "<cmd>vertical resize -2<cr>";
-	key = "<m-Left>";
-      }
-      {
-	action = "<cmd>vertical resize +2<cr>";
-	key = "<m-Right>";
-      }
-      {
-	mode = "n";
-	key = "<leader>fe";
-	action = ":let f=findfile('.env','.;') | if empty(f) | echo 'No .env found' | else | execute 'edit '..f | endif<CR>";
-	options.desc = "Edit nearest .env (safe)";
-      }
-      {
-	mode = "n";
-	key = "<leader>er";
-	action = ":let f=findfile('.envrc','.;') | if empty(f) | echo 'No .envrc found' | else | execute 'edit '..f | endif<CR>";
-	options.desc = "Edit nearest .envrc (safe)";
+        key = "<c-f>";
+        action = "<cmd>Telescope<cr>";
       }
 
+      { key = "<m-Up>";    action = "<cmd>resize -2<cr>"; }
+      { key = "<m-Down>";  action = "<cmd>resize +2<cr>"; }
+      { key = "<m-Left>";  action = "<cmd>vertical resize -2<cr>"; }
+      { key = "<m-Right>"; action = "<cmd>vertical resize +2<cr>"; }
+
+      {
+        mode = "n";
+        key = "<leader>fe";
+        action = ":let f=findfile('.env','.;') | if empty(f) | echo 'No .env found' | else | execute 'edit '..f | endif<CR>";
+        options.desc = "Edit nearest .env (safe)";
+      }
+
+      {
+        mode = "n";
+        key = "<leader>er";
+        action = ":let f=findfile('.envrc','.;') | if empty(f) | echo 'No .envrc found' | else | execute 'edit '..f | endif<CR>";
+        options.desc = "Edit nearest .envrc (safe)";
+      }
       ];
-# config.lazyload.settings.cmd = "Telescope";
+
+###### EXTRA PACKAGES ######
       config.extraPackages = [
-	pkgs.ripgrep
+        pkgs.ripgrep
       ];
-      config.plugins.web-devicons.enable = true;
-# config.plugins.mini-icons.enable = true;
 
-
-
+###### TELESCOPE ######
       config.plugins.telescope = {
-	enable = true;
+        enable = true;
 
-	settings = {
-	  defaults = {
-	    hidden = true;
-	    no_ignore = true;
-	    no_ignore_parent = true;
-	    follow = true;
-	    file_ignore_patterns = [
-	      "node_modules"
-		"vendor"
-		".git"
-		".pgdata"
-	    ];
-	  };
-	};
+        settings.defaults = {
+          hidden = true;
+          no_ignore = true;
+          no_ignore_parent = true;
+          follow = true;
 
+          file_ignore_patterns = [
+            "node_modules"
+              "vendor"
+              ".git"
+              ".tmp"
+              ".direnv"
+          ];
+        };
 
+###### TELESCOPE KEYMAPS ######
+        keymaps.ff = {
+          action = "find_files";
+          options.desc = "Find files (include hidden)";
+        };
 
-	keymaps.ff = {
-	  action = "find_files";
-	  options = {
-	    desc = "Find files (include .env & hidden)";
-	  };
-	};
+        keymaps.fF = {
+          action = "live_grep";
+          options.desc = "Find by words";
+        };
 
+        keymaps."f'" = {
+          action = "grep_string";
+          options.desc = "Find by string";
+        };
 
-# keymaps.ff.options.desc = "Find by files";
-# keymaps.ff.action = "find_files";
+        keymaps.fb = {
+          action = "buffers";
+          options.desc = "Find buffers";
+        };
 
-	keymaps.fF.options.desc = "Find by words";
-	keymaps.fF.action = "live_grep";
+        keymaps.fB = {
+          action = "current_buffer_fuzzy_find";
+          options.desc = "Fuzzy current buffer";
+        };
 
-	keymaps."f'".options.desc = "Find by string";
-	keymaps."f'".action = "grep_string";
+        keymaps.fh = {
+          action = "help_tags";
+          options.desc = "Find help";
+        };
 
-	keymaps.fb.options.desc = "Find by current buffers";
-	keymaps.fb.action = "buffers";
+        keymaps.fc = {
+          action = "colorscheme";
+          options.desc = "Find colorscheme";
+        };
 
-	keymaps.fB.options.desc = "Find fuzz by current buffers";
-	keymaps.fB.action = "current_buffer_fuzzy_find";
-
-	keymaps.fh.options.desc = "Find by help tags";
-	keymaps.fh.action = "help_tags";
-
-	keymaps.fc.options.desc = "Find by colorscheme";
-	keymaps.fc.action = "colorscheme";
-
-	keymaps.fC.options.desc = "Find by highlights";
-	keymaps.fC.action = "highlights";
+        keymaps.fC = {
+          action = "highlights";
+          options.desc = "Find highlights";
+        };
       };
-      config.colorschemes.vscode.enable = true;
-      config.colorschemes.vscode.settings = {
-	color_overrides = {
-	  vscLineNumber = "#FFFFFF";
-	};
-	italic_comments = true;
-	italic_inlayhints = true;
-	terminal_colors = true;
-	transparent = true;
-	underline_links = true;
+
+
+
+###### UI ######
+      config.plugins.web-devicons.enable = true;
+
+      config.colorschemes.vscode = {
+        enable = true;
+        settings = {
+          italic_comments = true;
+          italic_inlayhints = true;
+          terminal_colors = true;
+          transparent = true;
+          underline_links = true;
+
+          color_overrides = {
+            vscLineNumber = "#FFFFFF";
+          };
+        };
       };
+
+###### FILE TREE ######
       config.plugins.nvim-tree = {
-	enable = true;
-	settings = {
-	  view.side = "left";
-	  view.width = 60;
-	  filters.dotfiles = true;
-	  git.enable = true;
-	};
+        enable = true;
+        settings = {
+          view = {
+            side = "left";
+            width = 60;
+          };
+          filters.dotfiles = true;
+          git.enable = true;
+        };
       };
     };
+
     extraSpecialArgs = {};
   };
+
   nvim = nixvim'.makeNixvimWithModule nixvimModule;
-  in {
+  in
+  {
     packages.nvim = nvim;
   };
-		 }
+}
+
