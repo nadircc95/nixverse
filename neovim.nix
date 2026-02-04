@@ -5,7 +5,15 @@
   nixvimModule = {
     inherit system;
     module = {
-      config.opts.shiftwidth = 2;
+      config.opts = {
+	shiftwidth = 2;
+
+	number = true;
+	relativenumber = true;
+
+	cursorline = true;
+	signcolumn = "yes";
+      };
       config.keymaps = [
       {
 	action = "<cmd>NvimTreeToggle<cr>";
