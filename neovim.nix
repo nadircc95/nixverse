@@ -20,6 +20,10 @@
 
           cursorline = true;
         signcolumn = "yes";
+
+        foldmethod = "expr";
+        foldexpr = "nvim_treesitter#foldexpr()";
+        foldenable = false;
       };
 
 ###### KEYMAPS ######
@@ -125,6 +129,52 @@
         };
       };
 
+###### TREESITTER ######
+      config.plugins.treesitter = {
+        enable = true;
+
+        folding = {
+          enable = true;
+        };
+        indent = {
+          enable = true;
+        };
+
+        highlight = {
+          enable = true;
+        };
+
+
+        grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+          lua
+            vim
+            vimdoc
+            bash
+            json
+            yaml
+            toml
+            php
+            blade
+            phpdoc
+            html
+            css
+            javascript
+            typescript
+            sql
+            markdown
+        ];
+        settings = {
+          incremental_selection = {
+            enable = true;
+            keymaps = {
+              init_selection = "gnn";
+              node_incremental = "grn";
+              node_decremental = "grm";
+              scope_incremental = "grc";
+            };
+          };
+        };      
+      };
 
 
 ###### UI ######
