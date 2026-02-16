@@ -61,12 +61,45 @@
         action = ":let f=findfile('.envrc','.;') | if empty(f) | echo 'No .envrc found' | else | execute 'edit '..f | endif<CR>";
         options.desc = "Edit nearest .envrc (safe)";
       }
+      {
+        mode = "n";
+        key = "<leader>mp";
+        action = "<cmd>MarkdownPreviewToggle<CR>";
+        options.desc = "Toggle Markdown Preview";
+      }
+      {
+        mode = "n";
+        key = "<leader>mr";
+        action = "<cmd>RenderMarkdownToggle<CR>";
+        options.desc = "Toggle Render Markdown";
+      }
+
       ];
 
 ###### EXTRA PACKAGES ######
       config.extraPackages = [
         pkgs.ripgrep
+        pkgs.nodejs
       ];
+      
+      config.plugins.render-markdown = {
+        # enable = true;
+      };
+
+###### MARKDOWN PREVIEW ######
+      config.plugins.markdown-preview = {
+        enable = true;
+
+        settings = {
+          auto_start = 0;
+          auto_close = 1;
+          refresh_slow = 0;
+          open_to_the_world = 0;
+          open_ip = "127.0.0.1";
+          browser = "";
+          echo_preview_url = 1;
+        };
+      };
 
 ###### TELESCOPE ######
       config.plugins.telescope = {
