@@ -18,11 +18,15 @@
 	  ({pkgs,...}: {
 	    programs.direnv.enable = true;
 	    programs.direnv.nix-direnv.enable = true;
+      programs.nix-ld.enable = true;
 
 	    environment.systemPackages = [
 	      inputs.self.packages.${pkgs.stdenv.system}.nvim
 	      pkgs.git
 	      pkgs.direnv
+
+        pkgs.wget
+        pkgs.curl
 	    ];
 	  })
 	];

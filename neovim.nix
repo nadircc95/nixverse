@@ -169,34 +169,35 @@
         folding = {
           enable = true;
         };
-        indent = {
-          enable = true;
-        };
-
-        highlight = {
-          enable = true;
-        };
+        
 
 
         grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           lua
-            vim
-            vimdoc
-            bash
-            json
-            yaml
-            toml
-            php
-            blade
-            phpdoc
-            html
-            css
-            javascript
-            typescript
-            sql
-            markdown
+          vim
+          vimdoc
+          bash
+          json
+          yaml
+          toml
+          php
+          phpdoc
+          html
+          css
+          javascript
+          typescript
+          sql
+          markdown
         ];
+
         settings = {
+          indent = {
+            enable = true;
+          };
+
+          highlight = {
+            enable = true;
+          };
           incremental_selection = {
             enable = true;
             keymaps = {
@@ -209,8 +210,10 @@
         };      
       };
 
+      config.extraConfigLua = ''
+      '';
 
-###### UI ######
+      ###### UI ######
       config.plugins.web-devicons.enable = true;
 
       config.colorschemes.vscode = {
@@ -240,6 +243,7 @@
           git.enable = true;
         };
       };
+
     };
 
     extraSpecialArgs = {};
