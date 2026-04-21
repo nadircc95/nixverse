@@ -17,6 +17,7 @@ nixvim.makeNixvim {
     ./plugins/ui.nix
     ./plugins/filetree.nix
     ./plugins/markdown.nix
+    ./plugins/render-markdown.nix
     ./plugins/none-ls.nix
 
     ./languages/php.nix
