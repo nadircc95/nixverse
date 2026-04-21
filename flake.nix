@@ -20,7 +20,7 @@
 
       imports = [
         ./wsl.nix
-        ./neovim.nix
+        ./nixvim.nix
       ];
     };
 }

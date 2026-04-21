@@ -9,8 +9,28 @@
         { config, pkgs, ... }:
         {
 
+          config.extraPlugins = with pkgs.vimPlugins; [
+            
+          ];
+
+          ###### EXTRA PACKAGES ######
+          config.extraPackages = with pkgs; [
+            # pkgs.tree-sitter
+            # pkgs.ripgrep
+            # pkgs.nodejs
+
+            efm-langserver
+            php83
+
+            # Tool pendukung yang kita sebutkan di atas
+            php83Packages.phpstan # Panggil lewat pkgs (via 'with pkgs')
+            php83Packages.php-cs-fixer # Pastikan menggunakan prefix yang benar
+
+          ];
+
           ###### OPTIONS (VIM CORE) ######
           config.opts = {
+            swapfile = false;
             shiftwidth = 2;
             tabstop = 2;
             expandtab = true;
@@ -113,15 +133,6 @@
 
           ];
 
-          ###### EXTRA PACKAGES ######
-          config.extraPackages = [
-            pkgs.tree-sitter
-            pkgs.ripgrep
-            pkgs.nodejs
-          ];
-
-          config.extraPlugins = [ ];
-
           config.plugins.render-markdown = {
             # enable = true;
           };
@@ -175,9 +186,13 @@
               };
             };
           };
+
           config.plugins.lsp = {
             enable = true;
             servers.nixd.enable = true;
+            servers.efm = {
+              enable = true;
+            };
             keymaps.lspBuf = {
               "gd" = "definition";
               "gD" = "declaration";
@@ -265,6 +280,42 @@
             };
           };
 
+          config.plugins.efmls-configs = {
+            enable = true;
+
+            # Pilih tool yang ingin Anda gunakan untuk Laravel/Blade
+            languages = {
+              # Konfigurasi untuk PHP
+              php = {
+                linter = "phpstan";
+                formatter = "php_cs_fixer";
+              };
+
+              # Konfigurasi untuk Blade
+              # efm akan mencoba memformat blade Anda
+              blade = {
+                formatter = "blade_formatter";
+              };
+
+              # Konfigurasi untuk HTML/JS/CSS (Web)
+              html = {
+                formatter = "prettier";
+              };
+              css = {
+                formatter = "prettier";
+              };
+              javascript = {
+                formatter = "prettier";
+              };
+            };
+
+            externallyManagedPackages = [
+              "blade_formatter"
+              "php_cs_fixer"
+              "phpstan"
+            ];
+          };
+
           ###### TREESITTER ######
           config.plugins.treesitter = {
 
@@ -276,6 +327,8 @@
 
             nixGrammars = true;
             nixvimInjections = true;
+
+            # :checkhealth nvim-treesitter
 
             grammarPackages = with config.plugins.treesitter.package.builtGrammars; [
               lua
@@ -292,6 +345,7 @@
               css
               javascript
               typescript
+              blade
               sql
               markdown
             ];
@@ -316,6 +370,33 @@
               };
             };
           };
+
+          config.extraConfigLua = ''
+            -- 1. Deteksi filetype
+            vim.filetype.add({
+              pattern = { ['.*%.blade%.php'] = 'blade' },
+            })
+
+            -- 2. Daftarkan parser PHP untuk Blade (Kunci Utama Warna)
+            -- Kita beritahu Neovim: "Kalau ada file Blade, pakai logika PHP/HTML"
+            vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+              pattern = "*.blade.php",
+              callback = function()
+                vim.treesitter.start(0, "php") 
+                vim.cmd("setlocal syntax=php")
+              end,
+            })
+
+            -- 3. Tambahkan Query Injection langsung di memori
+            local query = [[
+              ((text) @injection.content
+               (#set! injection.combined)
+               (#set! injection.language "html"))
+            ]]
+
+            -- Pastikan parser php sudah dimuat dulu sebelum set query
+            pcall(require("vim.treesitter.query").set, "php", "injections", query)
+          '';
 
           ###### UI ######
           config.plugins.web-devicons.enable = true;
