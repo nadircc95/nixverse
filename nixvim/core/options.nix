@@ -71,6 +71,26 @@
     vim.opt.termguicolors = true
     vim.g.inccommand = "split"
 
+    local artisan = require("toggleterm.terminal").Terminal:new({
+      cmd = "bash",
+      direction = "vertical",
+      hidden = true,
+      size = function() return math.floor(vim.o.columns * 0.4) end,
+      on_open = function(term)
+        vim.bo[term.bufnr].modifiable = true
+        vim.cmd("startinsert!")
+        vim.keymap.set("t", "<C-q>", function()
+          term:close()
+        end, { noremap = true, silent = true, buffer = term.bufnr })
+        vim.keymap.set("n", "<C-q>", function()
+          term:close()
+        end, { noremap = true, silent = true, buffer = term.bufnr })
+      end,
+    })
+    function _ARTISAN_TOGGLE()
+      artisan:toggle()
+    end
+
     -- Helper: buat float terminal dengan Esc-Esc untuk close
     local function make_float_term(cmd)
       return require("toggleterm.terminal").Terminal:new({

@@ -88,6 +88,13 @@
 
     {
       mode = "n";
+      key = "<leader>ga";
+      action = "<cmd>lua _ARTISAN_TOGGLE()<CR>";
+      options = { desc = "Open PHP Artisan"; silent = true; };
+    }
+
+    {
+      mode = "n";
       key = "<leader>gg";
       action = "<cmd>lua _LAZYGIT_TOGGLE()<CR>";
       options = { desc = "Open LazyGit"; silent = true; };
