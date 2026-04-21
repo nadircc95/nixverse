@@ -78,33 +78,48 @@
       action = "<cmd>lua vim.lsp.buf.format({ async = true })<cr>";
     }
 
-    # Tambahkan keybinding untuk TUI apps
+    # Tambahkan keybinding untuk TUI apps (via toggleterm floating)
     {
       mode = "n";
       key = "<leader>gg";
-      action = "<cmd>terminal lazygit<CR>";
+      action = "<cmd>ToggleTerm cmd='lazygit'<CR>";
       options.desc = "Open LazyGit";
     }
 
     {
       mode = "n";
       key = "<leader>gs";
-      action = "<cmd>terminal htop<CR>";
+      action = "<cmd>ToggleTerm cmd='htop'<CR>";
       options.desc = "Open System Monitor (htop)";
     }
 
     {
       mode = "n";
       key = "<leader>gf";
-      action = "<cmd>terminal lf<CR>";
+      action = "<cmd>ToggleTerm cmd='lf'<CR>";
       options.desc = "Open File Manager (lf)";
     }
 
     {
       mode = "n";
       key = "<leader>gy";
-      action = "<cmd>terminal lazydocker<CR>";
+      action = "<cmd>ToggleTerm cmd='lazydocker'<CR>";
       options.desc = "Open LazyDocker";
+    }
+
+    # Terminal Mode Keybindings
+    {
+      mode = "t";
+      key = "<Esc>";
+      action = "<C-\\><C-n>";
+      options.desc = "Exit Terminal Mode";
+    }
+
+    {
+      mode = "t";
+      key = "<C-q>";
+      action = "<C-\\><C-n>";
+      options.desc = "Exit Terminal Mode (Ctrl+q)";
     }
 
     {
