@@ -1,10 +1,10 @@
 { inputs, system, pkgs, ... }:
 
 let
-  nixvimLib = inputs.nixvim.lib.${system};
+  nixvim = inputs.nixvim.legacyPackages.${system};
 in
-nixvimLib.makeNixvimWithModule {
-  inherit pkgs system;
+nixvim.makeNixvim {
+  inherit pkgs;
 
   module = {
     imports = [
@@ -22,7 +22,6 @@ nixvimLib.makeNixvimWithModule {
       ./plugins/none-ls.nix
 
       ./languages/php.nix
-
       ./extras/packages.nix
     ];
   };
