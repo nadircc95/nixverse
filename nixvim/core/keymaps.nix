@@ -90,31 +90,25 @@
       mode = "n";
       key = "<leader>gg";
       action = "<cmd>lua _LAZYGIT_TOGGLE()<CR>";
-      options = {
-        desc = "Open LazyGit";
-        silent = true;
-      };
+      options = { desc = "Open LazyGit"; silent = true; };
     }
-
     {
       mode = "n";
       key = "<leader>gs";
-      action = "<cmd>ToggleTerm cmd='htop'<CR>";
-      options.desc = "Open System Monitor (htop)";
+      action = "<cmd>lua _HTOP_TOGGLE()<CR>";
+      options = { desc = "Open System Monitor (htop)"; silent = true; };
     }
-
     {
       mode = "n";
       key = "<leader>gf";
-      action = "<cmd>ToggleTerm cmd='lf'<CR>";
-      options.desc = "Open File Manager (lf)";
+      action = "<cmd>lua _LF_TOGGLE()<CR>";
+      options = { desc = "Open File Manager (lf)"; silent = true; };
     }
-
     {
       mode = "n";
       key = "<leader>gy";
-      action = "<cmd>ToggleTerm cmd='lazydocker'<CR>";
-      options.desc = "Open LazyDocker";
+      action = "<cmd>lua _LAZYDOCKER_TOGGLE()<CR>";
+      options = { desc = "Open LazyDocker"; silent = true; };
     }
 
     # Terminal Mode Keybindings
@@ -123,6 +117,7 @@
       key = "<Esc>";
       action = "<C-\\><C-n>";
       options.desc = "Exit Terminal Mode";
+      options.silent = true;
     }
 
     {
@@ -130,6 +125,7 @@
       key = "<C-q>";
       action = "<C-\\><C-n>";
       options.desc = "Exit Terminal Mode (Ctrl+q)";
+      options.silent = true;
     }
 
     {
