@@ -6,10 +6,22 @@
       action = "<cmd>NvimTreeToggle<cr>";
     }
 
-    { key = "<c-h>"; action = "<c-w>h"; }
-    { key = "<c-j>"; action = "<c-w>j"; }
-    { key = "<c-k>"; action = "<c-w>k"; }
-    { key = "<c-l>"; action = "<c-w>l"; }
+    {
+      key = "<c-h>";
+      action = "<c-w>h";
+    }
+    {
+      key = "<c-j>";
+      action = "<c-w>j";
+    }
+    {
+      key = "<c-k>";
+      action = "<c-w>k";
+    }
+    {
+      key = "<c-l>";
+      action = "<c-w>l";
+    }
 
     {
       key = "<c-f>";
@@ -65,5 +77,42 @@
       key = "<leader>f";
       action = "<cmd>lua vim.lsp.buf.format({ async = true })<cr>";
     }
+
+    # Tambahkan keybinding untuk TUI apps
+    {
+      mode = "n";
+      key = "<leader>gg";
+      action = "<cmd>terminal lazygit<CR>";
+      options.desc = "Open LazyGit";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>gs";
+      action = "<cmd>terminal htop<CR>";
+      options.desc = "Open System Monitor (htop)";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>gf";
+      action = "<cmd>terminal lf<CR>";
+      options.desc = "Open File Manager (lf)";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>gy";
+      action = "<cmd>terminal lazydocker<CR>";
+      options.desc = "Open LazyDocker";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>za";
+      action = "<cmd>lua require('ufo').toggleFold()<CR>";
+      options.desc = "Toggle Fold";
+    }
+
   ];
 }

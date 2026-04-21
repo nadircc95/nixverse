@@ -15,5 +15,12 @@
     php83
     php83Packages.phpstan
     php83Packages.php-cs-fixer
+
+    # TUI Apps
+    lazygit
+    htop
+    lf
+    bottom           # Alternative to htop
+    fzf              # Fuzzy finder
   ];
 }
