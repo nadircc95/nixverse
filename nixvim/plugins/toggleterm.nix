@@ -1,6 +1,6 @@
 { ... }:
 {
-  plugins.toggleterm = {
+  config.plugins.toggleterm = {
     enable = true;
     direction = "float";
     openMapping = "<C-\\>";
