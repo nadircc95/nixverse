@@ -75,6 +75,9 @@
       cmd = "bash",
       direction = "vertical",
       hidden = true,
+      env = {
+        PS1 = "\\w $ ",
+      },
       size = function() return math.floor(vim.o.columns * 0.4) end,
       on_open = function(term)
         vim.bo[term.bufnr].modifiable = true
