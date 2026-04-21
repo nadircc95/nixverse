@@ -79,11 +79,21 @@
     }
 
     # Tambahkan keybinding untuk TUI apps (via toggleterm floating)
+    # {
+    #   mode = "n";
+    #   key = "<leader>gg";
+    #   action = "<cmd>ToggleTerm cmd='lazygit'<CR>";
+    #   options.desc = "Open LazyGit";
+    # }
+
     {
       mode = "n";
       key = "<leader>gg";
-      action = "<cmd>ToggleTerm cmd='lazygit'<CR>";
-      options.desc = "Open LazyGit";
+      action = "<cmd>lua _LAZYGIT_TOGGLE()<CR>";
+      options = {
+        desc = "Open LazyGit";
+        silent = true;
+      };
     }
 
     {

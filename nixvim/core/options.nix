@@ -71,6 +71,15 @@
     vim.opt.termguicolors = true
     vim.g.inccommand = "split"
 
+    local lazygit = require("toggleterm.terminal").Terminal:new({
+      cmd = "lazygit",
+      direction = "float",
+      hidden = true,
+    })
+    function _LAZYGIT_TOGGLE()
+      lazygit:toggle()
+    end
+
     -- 2. Daftarkan parser PHP untuk Blade (Kunci Utama Warna)
     -- Kita beritahu Neovim: "Kalau ada file Blade, pakai logika PHP/HTML"
     vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
