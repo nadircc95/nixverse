@@ -431,12 +431,12 @@
 
         };
 
-      nvim = nixvim'.makeNixvimWithModule {
+      nvimx = nixvim'.makeNixvimWithModule {
         inherit pkgs system;
         module = nixvimModule;
       };
     in
     {
-      packages.nvim = nvim;
+      packages.nvimx = nvimx;
     };
 }

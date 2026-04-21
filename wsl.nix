@@ -15,6 +15,8 @@
             wsl.defaultUser = "nadir";
             wsl.wslConf.network.hostname = "nadirnix";
 
+            nixpkgs.config.allowUnfree = true;
+
             nix.settings.experimental-features = [
               "nix-command"
               "flakes"
@@ -37,6 +39,7 @@
 
                 pkgs.wget
                 pkgs.curl
+                pkgs.nodePackages.intelephense
               ];
             }
           )

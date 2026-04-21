@@ -9,7 +9,7 @@
   };
 
   outputs =
-    { flake-parts, ... }@inputs:
+    { flake-parts, nixpkgs, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
@@ -17,6 +17,16 @@
         "x86_64-darwin"
         "aarch64-darwin"
       ];
+
+      perSystem = { system, ... }: {
+        _module.args.pkgs = import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+            allowUnfreePredicate = pkg: pkg.pname == "intelephense";
+          };
+        };
+      };
 
       imports = [
         ./wsl.nix

@@ -6,7 +6,11 @@
     servers = {
       nixd.enable = true;
 
-      intelephense.enable = true;
+      intelephense = {
+        enable = true;
+        package = null;
+        cmd = [ "intelephense" "--stdio" ];
+      };
     };
 
     keymaps.lspBuf = {

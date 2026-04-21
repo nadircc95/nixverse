@@ -4,9 +4,18 @@
     enable = true;
 
     keymaps = {
-      ff.action = "find_files";
-      fF.action = "live_grep";
-      fb.action = "buffers";
+      "<leader>ff" = {
+        action = "find_files";
+        options.desc = "Find files";
+      };
+      "<leader>fF" = {
+        action = "live_grep";
+        options.desc = "Live grep";
+      };
+      "<leader>fb" = {
+        action = "buffers";
+        options.desc = "Find buffers";
+      };
     };
   };
 }

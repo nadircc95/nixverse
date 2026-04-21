@@ -8,8 +8,8 @@
     # Node ecosystem
     nodejs
     nodePackages.prettier
-    nodePackages.intelephense
-    nodePackages.blade-formatter
+    # nodePackages.intelephense
+    # nodePackages.blade-formatter
 
     # PHP
     php83

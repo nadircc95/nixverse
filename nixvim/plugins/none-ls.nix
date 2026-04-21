@@ -3,9 +3,13 @@
   config.plugins.none-ls = {
     enable = true;
 
-    sources.formatting = {
-      nixfmt.enable = true;
-      nixfmt.package = pkgs.nixfmt;
+    sources = {
+      formatting = {
+        nixfmt = {
+          enable = true;
+          package = pkgs.nixfmt;
+        };
+      };
     };
   };
 }
