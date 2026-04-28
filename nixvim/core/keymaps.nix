@@ -67,6 +67,34 @@
     }
 
     {
+      mode = "v"; # Visual Line Mode
+      key = "J";
+      action = ":m '>+1<CR>gv=gv";
+      options = { desc = "Move selection down"; silent = true; };
+    }
+
+    {
+      mode = "v";
+      key = "K";
+      action = ":m '<-2<CR>gv=gv";
+      options = { desc = "Move selection up"; silent = true; };
+    }
+
+    {
+      mode = "v"; # Visual Line Mode
+      key = "L";
+      action = ">gv";
+      options = { desc = "Indent ke kanan"; silent = true; };
+    }
+
+    {
+      mode = "v";
+      key = "H";
+      action = "<gv";
+      options = { desc = "Indent ke kiri"; silent = true; };
+    }
+
+    {
       mode = "n";
       key = "<leader>mr";
       action = "<cmd>RenderMarkdownToggle<CR>";

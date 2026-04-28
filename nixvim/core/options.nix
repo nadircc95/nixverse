@@ -27,6 +27,9 @@
     cursorcolumn = false;             # Highlight current column
     signcolumn = "yes";               # Always show sign column
     colorcolumn = "80,120";           # Show column guides
+    sidescroll = 1;
+    sidescrolloff = 8;
+    wrap = false;
     
     # Indentation
     shiftwidth = 2;
