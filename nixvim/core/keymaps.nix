@@ -121,6 +121,14 @@
       options = { desc = "Open PHP Artisan"; silent = true; };
     }
 
+    
+    {
+      mode = "n";
+      key = "<leader>g";
+      action = "<cmd>Neogit<CR>";
+      options = { desc = "Open Neogit"; silent = true; };
+    }
+
     {
       mode = "n";
       key = "<leader>gg";

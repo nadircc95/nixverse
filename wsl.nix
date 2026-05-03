@@ -40,6 +40,7 @@
                 pkgs.wget
                 pkgs.curl
                 pkgs.nodePackages.intelephense
+                pkgs.gh
               ];
             }
           )

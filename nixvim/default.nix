@@ -20,6 +20,7 @@ nixvim.makeNixvim {
     ./plugins/render-markdown.nix
     ./plugins/none-ls.nix
     ./plugins/toggleterm.nix
+    ./plugins/git.nix
 
     ./languages/php.nix
     ./extras/packages.nix
