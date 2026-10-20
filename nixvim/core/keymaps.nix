@@ -67,7 +67,7 @@
     }
 
     {
-      mode = "v"; # Visual Line Mode
+      mode = "v"; # Visual Line Mode 
       key = "J";
       action = ":m '>+1<CR>gv=gv";
       options = { desc = "Move selection down"; silent = true; };

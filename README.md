@@ -133,3 +133,10 @@ Coba `42G` untuk jump ke baris 42, atau `/function` untuk cari function dengan c
 :args app/Http/Controllers/**/*.php
 :argdo undo | update
 ```
+
+
+```bash
+
+# Membersihkan Generasi Lama NixOS (Garbage Collection)
+sudo nix-collect-garbage -d
+```
