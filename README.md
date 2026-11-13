@@ -3,32 +3,61 @@
 ## command 
 
 * Nix Verse Rebuild 
-```console
+```bash
 sudo nixos-rebuild switch --flake github:nadircc95/nixverse#nadir-wsl
 ```
 
 ## WSL
 
-```console
+```bash
 wsl --list
 wsl --install --from-file <NAME.wsl> --name <WSL_distro_name> 
 ```
 
-## Building wsl os
+## Membuat file WSL
 
-```console
+Jalankan dari root repository untuk membuat file WSL berdasarkan konfigurasi lokal
+`nadir-wsl`:
+
+```bash
+
+# dari nixverse github
 sudo nix run github:nadircc95/nixverse#nixosConfigurations.nadir-wsl.config.system.build.tarballBuilder <NAME.wsl>
+# dari nix local
+sudo nix run .#nixosConfigurations.nadir-wsl.config.system.build.tarballBuilder
+```
+
+Tanpa nama output, builder menghasilkan `nixos.wsl` di direktori saat ini.
+Untuk menentukan nama file, berikan nama beserta ekstensi `.wsl`:
+
+```bash
+sudo nix run .#nixosConfigurations.nadir-wsl.config.system.build.tarballBuilder -- nadirnix-new.wsl
+```
+
+Jika ingin menggunakan versi terbaru dari semua input flake yang dikunci di
+`flake.lock`, perbarui input terlebih dahulu:
+
+```bash
+nix flake update
+sudo nix run .#nixosConfigurations.nadir-wsl.config.system.build.tarballBuilder
+```
+
+Setelah file selesai dibuat, import ke WSL dari PowerShell (ganti nama/path sesuai
+kebutuhan):
+
+```powershell
+wsl --install --from-file .\nixos.wsl --name nadir-wsl
 ```
 
 ## Apply Configuration
 
-```console
+```bash
 sudo nixos-rebuild switch --flake .#nadir-wsl
 ```
 
 ## NVIM
 
-```console
+```bash
 nix run .#nvim # local build
 nix run github:nadircc95/nixverse#nvim # remote run
 ```
@@ -111,25 +140,25 @@ Coba `42G` untuk jump ke baris 42, atau `/function` untuk cari function dengan c
 
 
 ### replace '){' to ') {' 
-```console
+```bash
 :args app/Http/Controllers/**/*.php
 :argdo %s/){/) {/g | update
 ```
 
 ### replace ) :type to :type {
-```console
+```bash
 :args app/Http/Controllers/**/*.php
 :argdo %s/)\s*:\s*\([^{]*\)\n\s*{/) :\1 {/g | update
 ```
 
 ### replace '( enter{' to '( {'
-```console
+```bash
 :args app/Http/Controllers/**/*.php
 :argdo %s/)\n\s*{/) {/g | update
 ```
 
 ### undo semua files di args list
-```console 
+```bash 
 :args app/Http/Controllers/**/*.php
 :argdo undo | update
 ```

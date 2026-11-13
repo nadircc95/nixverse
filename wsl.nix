@@ -15,6 +15,9 @@
             wsl.defaultUser = "nadir";
             wsl.wslConf.network.hostname = "nadirnix";
 
+            wsl.useWindowsDriver = true; # Opsional, membantu integrasi driver jika diperlukan
+            systemd.services.docker.wantedBy = [ "multi-user.target" ];
+
             nixpkgs.config.allowUnfree = true;
 
             nix.settings.experimental-features = [
@@ -50,12 +53,15 @@
 
                 pkgs.wget
                 pkgs.curl
-                pkgs.nodePackages.intelephense
+                pkgs.intelephense
                 pkgs.gh
                 pkgs.cacert              # Menyediakan CA bundle untuk SSL/TLS
 
                 # --- CLI Tools Global ---
                 pkgs.github-copilot-cli # Copilot CLI terinstall global di WSL
+
+                # --- Tools Reverse Engineering ---
+                pkgs.ghidra             # <--- Tambahkan baris ini di sini
               ];
             }
           )
